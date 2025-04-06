@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Q16 - Mouseover Alert</title>
+    <script type="text/javascript">
+        function welcomeAlert() {
+            alert("Welcome");
+        }
+        window.onload = function () {
+            const link = document.createElement("a");
+            link.href = "#";
+            link.id = "welcomeLink";
+            link.textContent = "Hover for a welcome message";
+            link.onmouseover = welcomeAlert;
+            document.body.appendChild(link);
+        };
+    </script>
+</head>
+<body>
+</body>
+</html>

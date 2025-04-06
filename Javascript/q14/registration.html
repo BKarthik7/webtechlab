@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <script>
+        function validateForm() {
+            const form = document.forms["registrationForm"];
+            const username = form["username"].value.trim();
+            const password = form["password"].value;
+            const confirmPassword = form["confirmPassword"].value;
+            const email = form["email"].value.trim();
+            const yearOfBirth = form["yearOfBirth"].value.trim();
+            const terms = form["terms"].checked;
+
+            if (!username || !password || !confirmPassword || !email) {
+                alert("All fields are required.");
+                return false;
+            }
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match.");
+                return false;
+            }
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                alert("Invalid email format.");
+                return false;
+            }
+
+            if (!/^\d{4}$/.test(yearOfBirth) || yearOfBirth < 1900 || yearOfBirth > 2000) {
+                alert("Year of birth must be a four-digit number between 1900 and 2000.");
+                return false;
+            }
+
+            if (!terms) {
+                alert("You must agree to the terms and conditions.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h1>Registration Form</h1>
+    <form name="registrationForm" onsubmit="return validateForm()">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br><br>
+
+        <label for="username">User Name:</label><br>
+        <input type="text" id="username" name="username"><br><br>
+
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br><br>
+
+        <label for="confirmPassword">Confirm Password:</label><br>
+        <input type="password" id="confirmPassword" name="confirmPassword"><br><br>
+
+        <label for="yearOfBirth">Year of Birth:</label><br>
+        <input type="text" id="yearOfBirth" name="yearOfBirth"><br><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email"><br><br>
+
+        <input type="checkbox" id="terms" name="terms">
+        <label for="terms">I agree to the terms and conditions</label><br><br>
+
+        <input type="submit" value="Register">
+    </form>
+</body>
+</html>
