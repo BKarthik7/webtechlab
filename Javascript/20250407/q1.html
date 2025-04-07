@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function compareNumbers(a, b) {
+            var result;
+
+            if (a === b) {
+                let square = a * a;
+                result = square;
+            } else {
+                const smallest = a < b ? a : b;
+                result = smallest;
+            }
+
+            return result;
+        }
+
+        const a = prompt("Enter the first number:");
+        const b = prompt("Enter the second number:");
+        const result = compareNumbers(Number(a), Number(b));
+        document.write("Result: " + result);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
