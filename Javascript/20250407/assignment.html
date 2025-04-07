@@ -1,0 +1,206 @@
+<!-- Name : B Karthik -->
+<!-- USN : 1MS22CS038 -->
+
+<!-- 
+  Through this assignment, I learned that scope in JavaScript determines where variables are accessible within a program. 
+  I explored different types of scopes—global, local (function), and block. 
+  I saw that variables declared with let or const inside functions or blocks are not accessible outside, 
+  whereas var is function-scoped and can lead to unexpected behavior when used inside blocks. 
+  The concept of lexical scope helped me understand how inner functions access variables from their parent scope. 
+  I also learned how hoisting affects variable visibility and why using let or const is generally safer than var.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Assignment</title>
+</head>
+<body>
+    <h1>JavaScript Scopes Assignment</h1>
+    <h2>Quiz App</h2>
+    <button onclick="startQuiz()">Start Quiz</button>
+    <button onclick="reviewScore()">Review Score</button>
+    <p id="quiz-result"></p>
+
+    <h2>Student Activity Evaluation</h2>
+    <button onclick="evaluateStudent()">Evaluate Student</button>
+    <p id="student-result"></p>
+
+    <h2>Student Activity Evaluation 2</h2>
+    <button onclick="evaluateStudent2()">Evaluate Student with Input</button>
+    <p id="student-result-2"></p>
+
+    <script>
+        // Global variable for quiz score
+        let quizScore = 0;
+
+        // Function Declaration: Q 1
+        function question1() {
+            let scoreInsideFunction = 0; // Local variable
+            let answer = prompt("What is 2 + 2?");
+            if (parseInt(answer) === 4) {
+                scoreInsideFunction++;
+                quizScore++;
+            }
+        }
+
+        // Function Expression: Q 2
+        const question2 = function() {
+            let answer = prompt("What is the capital of France?");
+            if (answer.toLowerCase() === "paris") {
+                quizScore++;
+            }
+        };
+
+        // Hoisting Demonstration: Q 3
+        function question3() {
+            console.log("Before declaration:", hoistedVar); // undefined due to hoisting
+            var hoistedVar = "hoisted";
+            let answer = prompt("What is 5 * 6?");
+            if (parseInt(answer) === 30) {
+                quizScore++;
+            }
+        }
+
+        // Start Quiz
+        function startQuiz() {
+            quizScore = 0;
+            question1();
+            question2();
+            question3();
+            document.getElementById("quiz-result").innerText = `Your score is: ${quizScore}`;
+        }
+
+        // Bonus: Review Score
+        function reviewScore() {
+            try {
+                alert(`Score inside Q function: ${scoreInsideFunction}`); // Should throw an error
+            }
+            catch (error) {
+                alert("Error : " + error.message);
+            }
+        }
+
+        // Global variables for student evaluation
+        let studentName = "Anika";
+        let activityScores = [10, 20, 15, 5];
+
+        // Function Declaration: Calculate Total
+        function calculateTotal() {
+            let total = 0;
+            for (let score of activityScores) {
+                total += score;
+            }
+            return total;
+        }
+
+        // Function Expression: Evaluate Rank
+        const evaluateRank = function(total) {
+            if (total > 40) return "Star Performer";
+            if (total >= 30) return "Active";
+            return "Inactive";
+        };
+
+        // Anonymous Function: Calculate Average
+        const calculateAverage = function() {
+            return calculateTotal() / activityScores.length;
+        };
+
+        // Lexical Scope: Generate Report
+        function generateReport(rank) {
+            function showDetails() {
+                return `Student: ${studentName}\nRank: ${rank}\nMessage: Great job on co-curriculars!`;
+            }
+            return showDetails();
+        }
+
+        // Hoisting Experiment
+        function demonstrateHoisting() {
+            console.log("Category before declaration:", category); // undefined
+            var category = "Example";
+        }
+
+        // Scope Isolation Test
+        function scopeIsolationTest() {
+            if (true) {
+                var testVar = "Function Scoped";
+            }
+            console.log("Accessing var outside block:", testVar); // Accessible
+        }
+
+        // Evaluate Student
+        function evaluateStudent() {
+            let totalScore = calculateTotal();
+            let rank = evaluateRank(totalScore);
+            let averageScore = calculateAverage();
+            let report = generateReport(rank);
+
+            demonstrateHoisting();
+            scopeIsolationTest();
+
+            document.getElementById("student-result").innerText = `
+                Student: ${studentName}
+                Activity Scores: ${activityScores.join(", ")}
+                Total Score: ${totalScore}
+                Average Score: ${averageScore.toFixed(2)}
+                Rank: ${rank}
+                Report: ${report.replace(/\n/g, " ")}
+            `;
+        }
+
+        // Global variables for Student Activity Evaluation 2
+        let studentName2 = "";
+        let activityScores2 = [];
+
+        // Function Declaration: Calculate Total for Student 2
+        function calculateTotal2() {
+            return activityScores2.reduce((total, score) => total + score, 0);
+        }
+
+        // Function Expression: Evaluate Rank for Student 2
+        const evaluateRank2 = function(total2) {
+            if (total2 > 40) return "Star Performer";
+            if (total2 >= 30) return "Active";
+            return "Inactive";
+        };
+
+        // Anonymous Function: Calculate Average for Student 2
+        const calculateAverage2 = function() {
+            return calculateTotal2() / activityScores2.length;
+        };
+
+        // Lexical Scope: Generate Report for Student 2
+        function generateReport2(rank2) {
+            function showDetails2() {
+                return `Student: ${studentName2}\nRank: ${rank2}\nMessage: Keep up the good work!`;
+            }
+            return showDetails2();
+        }
+
+        // Function to evaluate Student 2
+        function evaluateStudent2() {
+            // Take input for student name and activity scores
+            studentName2 = prompt("Enter the student's name:");
+            const scoresInput2 = prompt("Enter activity scores separated by commas (e.g., 10,20,15):");
+            activityScores2 = scoresInput2.split(",").map(Number);
+
+            // Perform calculations
+            const totalScore2 = calculateTotal2();
+            const rank2 = evaluateRank2(totalScore2);
+            const averageScore2 = calculateAverage2();
+            const report2 = generateReport2(rank2);
+
+            // Display results
+            document.getElementById("student-result-2").innerText = `
+                Student: ${studentName2}
+                Activity Scores: ${activityScores2.join(", ")}
+                Total Score: ${totalScore2}
+                Average Score: ${averageScore2.toFixed(2)}
+                Rank: ${rank2}
+                Report: ${report2.replace(/\n/g, " ")}
+            `;
+        }
+    </script>
+</body>
+</html>
